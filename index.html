@@ -30,25 +30,32 @@
         .wishlist-item {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin: 20px 0;
+            margin: 20px 0px;
             border-radius: 8px;
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
         .wishlist-item img {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 8px;
             border: 2px solid #ffdf00;
             margin-right: 15px;
         }
+        .wishlist-item-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: calc(100% - 250px); /* Adjust based on image and price width */
+        }
         .wishlist-item a {
             text-decoration: none;
             color: #ffdf00;
             font-size: 18px;
+            margin-bottom: 5px;
         }
         .wishlist-item a:hover {
             text-decoration: underline;
@@ -56,16 +63,19 @@
         .wishlist-item span {
             font-size: 16px;
             color: #ddd;
-            display: block;
-            margin-top: 5px;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .price {
             font-size: 18px;
             font-weight: bold;
             color: #ddd;
-            white-space: nowrap; 
-            margin-left: auto;
-            margin-right: auto;
+            white-space: nowrap;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-400%);
         }
     </style>
 </head>
@@ -73,72 +83,72 @@
     <div class="container">
         <h1>🎄 My Christmas Wishlist 🎁</h1>
         <div class="wishlist-item">
-            <img src="https://integration.imerco.dk/cdn-cgi/image/width=600,format=auto,quality=65/https://integration.imerco.dk/api/assetstorage/3990_86a7517d-e55e-4a96-beeb-4b55a338907b" alt="Iceland">
-            <div>
+            <img src="https://integration.imerco.dk/cdn-cgi/image/width=600,format=auto,quality=65/https://integration.imerco.dk/api/assetstorage/3990_86a7517d-e55e-4a96-beeb-4b55a338907b" >
+            <div class="wishlist-item-content">
                 <a href="https://www.imerco.dk/eva-solo-to-go-rejsekrus-35-cl-genanvendt-staal-kunststof-silikone-black?id=100436527" target="_blank">Termoflaske</a>
                 <span>Så jeg kan få kaffe med hen på skolen</span>
             </div>
             <div class="price">Kr. 199,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/9f85f9a27af74438b3cae223faac32cc/fefd97ff06a84c94877eb29a169b983d.jpg?" alt="Camera">
-            <div>
+            <img src="https://img01.ztat.net/article/spp-media-p1/9f85f9a27af74438b3cae223faac32cc/fefd97ff06a84c94877eb29a169b983d.jpg?" >
+            <div class="wishlist-item-content">
                 <a href="https://www.zalando.dk/urban-classics-sweatshirt-black-ur622s0a6-q11.html" target="_blank">Varmtrøje/hættetrøje</a>
                 <span>Noget man kan tage ud over t-shirt, gerne en hættetrøje.</span>
             </div>
             <div class="price">ca. Kr. 150,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://thumblr.uniid.it/product/257422/360403483763.jpg?width=1080&format=webp&q=75" alt="Piano">
-            <div>
+            <img src="https://thumblr.uniid.it/product/257422/360403483763.jpg?width=1080&format=webp&q=75" >
+            <div class="wishlist-item-content">
                 <a href="https://www.unisport.dk/traeningsshorts/nike-lobeshorts-dri-fit-stride-2i1-sortsolv/257422/?dfw=10050&feed=22124&utm_source=pricerunner&utm_medium=affiliate&utm_campaign=pricerunner_dk&utm_id=29414&utm_content=shorts" target="_blank">Sportstøj</a>
-                <span>Gerne et sæt, og meget helst bukser med inder shorts (busker M, trøje L)</span>
+                <span>Gerne et sæt, og meget helst bukser med inner shorts (busker M, trøje L)</span>
             </div>
             <div class="price">Kr. 150-300,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://via.placeholder.com/100" alt="Books">
-            <div>
-                <a href="https://example.com/books" target="_blank">Sengelinned/Sengetøj</a>
+            <img src="https://www.home-tex.dk/images/IMG_0358-1_216657190.webp" >
+            <div class="wishlist-item-content">
+                <a href="https://www.home-tex.dk/shop/sengetoej-140x220-cm-14486p.html" target="_blank">Sengelinned/Sengetøj</a>
                 <span>Et dybbtræk og pudebetræk</span>
             </div>
-            <div class="price">Kr. 1,000,-</div>
+            <div class="price">Kr. 150-200,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/16437cd19ecf4969a91f2a0728c1a95f/0415a8ea325a40a6bfb7271150603163.jpg?imwidth=1800" alt="Gaming PC">
-            <div>
+            <img src="https://img01.ztat.net/article/spp-media-p1/16437cd19ecf4969a91f2a0728c1a95f/0415a8ea325a40a6bfb7271150603163.jpg?imwidth=1800" >
+            <div class="wishlist-item-content">
                 <a href="https://www.zalando.dk/ombre-sweatshirt-dark-grey-om422s07d-c11.html" target="_blank">Langeærmet trøje</a>
                 <span>Må gerne have lidt design på.</span>
             </div>
             <div class="price">ca. Kr. 300,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/0109adbced8e4c4dab0c4f0998705568/7c68176a3cf44b919c7c54e7088fa4fe.jpg?imwidth=1800" alt="Gaming PC">
-            <div>
+            <img src="https://img01.ztat.net/article/spp-media-p1/0109adbced8e4c4dab0c4f0998705568/7c68176a3cf44b919c7c54e7088fa4fe.jpg?imwidth=1800" >
+            <div class="wishlist-item-content">
                 <a href="https://www.zalando.dk/under-armour-langarmede-t-shirts-blackcharcoal-un242g056-q11.html" target="_blank">Varm overtræks trøje</a>
                 <span>En man kan løbe i og holde varmen i koldetider (udenhætte)</span>
             </div>
             <div class="price">ca. Kr. 300,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://www.proshop.dk/Images/915x900/2801553_8fef9631b5b4.png" alt="Gaming PC">
-            <div>
+            <img src="https://www.proshop.dk/Images/915x900/2801553_8fef9631b5b4.png" >
+            <div class="wishlist-item-content">
                 <a href="https://www.proshop.dk/Mobil-Covers-Cases/OnePlus-7T-Pro-Protective-Case-Karbon/2801553" target="_blank">Cover til mobil</a>
                 <span>Oneplus 7t pro, et cover/etui uden front/pung (billig i blackfriday)</span>
             </div>
             <div class="price">Kr. 29-150,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://resources.chainbox.io/5/cykelpartner/public/pim/d82992e5-abfd-4e64-91ee-3115c55cf1b6/og4019300_a_default.png" alt="Gaming PC">
-            <div>
+            <img src="https://resources.chainbox.io/5/cykelpartner/public/pim/d82992e5-abfd-4e64-91ee-3115c55cf1b6/og4019300_a_default.png" >
+            <div class="wishlist-item-content">
                 <a href="https://www.cykelpartner.dk/pumper-og-tilbehoer/ongear---minipumpe---til-alle-ventiltyper---8-bar120-psi---inklusiv-beslag---blaa" target="_blank">Cykel pumpe</a>
                 <span>En lille cykelpumpe som kan monteres på cyklen (som fungere)</span>
             </div>
             <div class="price">Kr. 50-100,-</div>
         </div>
         <div class="wishlist-item">
-            <img src="https://skioutlet.nu/wp-content/uploads/2020/07/13796-500-510x510.jpeg" alt="Gaming PC">
-            <div>
+            <img src="https://skioutlet.nu/wp-content/uploads/2020/07/13796-500-510x510.jpeg">
+            <div class="wishlist-item-content">
                 <a href="https://skioutlet.nu/vare/paley-pnt-m/?attribute_pa_color=sort" target="_blank">Skitøj</a>
                 <span>Varmt tøj/undertøj eller skibukser</span>
             </div>
