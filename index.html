@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Christmas Wishlist</title>
     <style>
+        /* General body styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,155 +14,182 @@
             background-size: cover;
             color: #fff;
         }
+
+        /* Container styling */
         .container {
             max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
-            font-size: 40px;
+            font-size: 32px;
             text-align: center;
             color: #ffdf00;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
+
+        /* Wishlist items layout */
         .wishlist-item {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
-            margin: 20px 0px;
+            margin: 20px 0;
             border-radius: 8px;
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-            position: relative;
         }
+
         .wishlist-item img {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             border-radius: 8px;
             border: 2px solid #ffdf00;
             margin-right: 15px;
+            flex-shrink: 0; /* Prevent image shrinking */
         }
+
         .wishlist-item-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            max-width: calc(100% - 250px); /* Adjust based on image and price width */
+            justify-content: center;
+            margin-top: 10px;
         }
+
         .wishlist-item a {
             text-decoration: none;
             color: #ffdf00;
             font-size: 18px;
             margin-bottom: 5px;
         }
+
         .wishlist-item a:hover {
             text-decoration: underline;
         }
+
         .wishlist-item span {
-            font-size: 16px;
+            font-size: 14px;
             color: #ddd;
-            white-space: normal;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
+
         .price {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #ddd;
-            white-space: nowrap;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-400%);
+            margin-top: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .wishlist-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .wishlist-item img {
+                width: 100%;
+                height: auto;
+                margin: 0 0 10px 0;
+            }
+
+            .wishlist-item-content {
+                max-width: 100%;
+            }
+
+            .price {
+                position: static;
+                transform: none;
+                margin-top: 5px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .wishlist-item a {
+                font-size: 16px;
+            }
+
+            .wishlist-item span {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎄 Lasse's ønskeseddel  🎁</h1>
+        <h1>🎄 Lasse's ønskeseddel 🎁</h1>
+
+        <!-- Termoflaske -->
         <div class="wishlist-item">
             <a href="https://www.imerco.dk/eva-solo-to-go-rejsekrus-35-cl-genanvendt-staal-kunststof-silikone-black?id=100436527" target="_blank">
-            <img src="https://integration.imerco.dk/cdn-cgi/image/width=600,format=auto,quality=65/https://integration.imerco.dk/api/assetstorage/3990_86a7517d-e55e-4a96-beeb-4b55a338907b" ></a>
+                <img src="https://integration.imerco.dk/cdn-cgi/image/width=600,format=auto,quality=65/https://integration.imerco.dk/api/assetstorage/3990_86a7517d-e55e-4a96-beeb-4b55a338907b">
+            </a>
             <div class="wishlist-item-content">
                 <a href="https://www.imerco.dk/eva-solo-to-go-rejsekrus-35-cl-genanvendt-staal-kunststof-silikone-black?id=100436527" target="_blank">Termoflaske</a>
                 <span>Så jeg kan få kaffe med hen på skolen</span>
+                <div class="price">Kr. 199,-</div>
             </div>
-            <div class="price">Kr. 199,-</div>
         </div>
+
+        <!-- Varmtrøje -->
         <div class="wishlist-item">
             <a href="https://www.zalando.dk/urban-classics-sweatshirt-black-ur622s0a6-q11.html" target="_blank">
-            <img src="https://img01.ztat.net/article/spp-media-p1/9f85f9a27af74438b3cae223faac32cc/fefd97ff06a84c94877eb29a169b983d.jpg?" ></a>
+                <img src="https://img01.ztat.net/article/spp-media-p1/9f85f9a27af74438b3cae223faac32cc/fefd97ff06a84c94877eb29a169b983d.jpg?">
+            </a>
             <div class="wishlist-item-content">
                 <a href="https://www.zalando.dk/urban-classics-sweatshirt-black-ur622s0a6-q11.html" target="_blank">Varmtrøje/hættetrøje</a>
                 <span>Noget man kan tage ud over t-shirt, gerne en hættetrøje.</span>
+                <div class="price">ca. Kr. 150,-</div>
             </div>
-            <div class="price">ca. Kr. 150,-</div>
         </div>
+
+        <!-- Sportstøj -->
         <div class="wishlist-item">
-            <a href="https://www.unisport.dk/traeningsshorts/nike-lobeshorts-dri-fit-stride-2i1-sortsolv/257422/?dfw=10050&feed=22124&utm_source=pricerunner&utm_medium=affiliate&utm_campaign=pricerunner_dk&utm_id=29414&utm_content=shorts" target="_blank">
-            <img src="https://thumblr.uniid.it/product/257422/360403483763.jpg?width=1080&format=webp&q=75" ></a>
+            <a href="https://www.unisport.dk/traeningsshorts/nike-lobeshorts-dri-fit-stride-2i1-sortsolv/257422/?dfw=10050" target="_blank">
+                <img src="https://thumblr.uniid.it/product/257422/360403483763.jpg?width=1080&format=webp&q=75">
+            </a>
             <div class="wishlist-item-content">
-                <a href="https://www.unisport.dk/traeningsshorts/nike-lobeshorts-dri-fit-stride-2i1-sortsolv/257422/?dfw=10050&feed=22124&utm_source=pricerunner&utm_medium=affiliate&utm_campaign=pricerunner_dk&utm_id=29414&utm_content=shorts" target="_blank">Sportstøj</a>
-                <span>Gerne et sæt, og meget helst bukser med inner shorts (busker M, trøje L)</span>
+                <a href="https://www.unisport.dk/traeningsshorts/nike-lobeshorts-dri-fit-stride-2i1-sortsolv/257422/?dfw=10050" target="_blank">Sportstøj</a>
+                <span>Gerne et sæt, og meget helst bukser med inner shorts.</span>
+                <div class="price">Kr. 150-300,-</div>
             </div>
-            <div class="price">Kr. 150-300,-</div>
         </div>
+
+        <!-- Sengelinned -->
         <div class="wishlist-item">
             <a href="https://www.home-tex.dk/shop/sengetoej-140x220-cm-14486p.html" target="_blank">
-            <img src="https://www.home-tex.dk/images/IMG_0358-1_216657190.webp" ></a>
+                <img src="https://www.home-tex.dk/images/IMG_0358-1_216657190.webp">
+            </a>
             <div class="wishlist-item-content">
-                <a href="https://www.home-tex.dk/shop/sengetoej-140x220-cm-14486p.html" target="_blank">Sengelinned/Sengetøj</a>
-                <span>Et dybbtræk og pudebetræk</span>
+                <a href="https://www.home-tex.dk/shop/sengetoej-140x220-cm-14486p.html" target="_blank">Sengelinned</a>
+                <span>Et dynebetræk og pudebetræk</span>
+                <div class="price">Kr. 150-200,-</div>
             </div>
-            <div class="price">Kr. 150-200,-</div>
         </div>
-        <div class="wishlist-item">
-            <a href="https://www.zalando.dk/ombre-sweatshirt-dark-grey-om422s07d-c11.html" target="_blank">
-            <img src="https://img01.ztat.net/article/spp-media-p1/16437cd19ecf4969a91f2a0728c1a95f/0415a8ea325a40a6bfb7271150603163.jpg?imwidth=1800" ></a>
-            <div class="wishlist-item-content">
-                <a href="https://www.zalando.dk/ombre-sweatshirt-dark-grey-om422s07d-c11.html" target="_blank">Langeærmet trøje</a>
-                <span>Må gerne have lidt design på.</span>
-            </div>
-            <div class="price">ca. Kr. 300,-</div>
-        </div>
-        <div class="wishlist-item">
-            <a href="https://www.zalando.dk/under-armour-langarmede-t-shirts-blackcharcoal-un242g056-q11.html" target="_blank">
-            <img src="https://img01.ztat.net/article/spp-media-p1/0109adbced8e4c4dab0c4f0998705568/7c68176a3cf44b919c7c54e7088fa4fe.jpg?imwidth=1800" ></a>
-            <div class="wishlist-item-content">
-                <a href="https://www.zalando.dk/under-armour-langarmede-t-shirts-blackcharcoal-un242g056-q11.html" target="_blank">Varm overtræks trøje</a>
-                <span>En man kan løbe i og holde varmen i koldetider (udenhætte)</span>
-            </div>
-            <div class="price">ca. Kr. 300,-</div>
-        </div>
+
+        <!-- Cover -->
         <div class="wishlist-item">
             <a href="https://www.proshop.dk/Mobil-Covers-Cases/OnePlus-7T-Pro-Protective-Case-Karbon/2801553" target="_blank">
-            <img src="https://www.proshop.dk/Images/915x900/2801553_8fef9631b5b4.png" ></a>
+                <img src="https://www.proshop.dk/Images/915x900/2801553_8fef9631b5b4.png">
+            </a>
             <div class="wishlist-item-content">
                 <a href="https://www.proshop.dk/Mobil-Covers-Cases/OnePlus-7T-Pro-Protective-Case-Karbon/2801553" target="_blank">Cover til mobil</a>
-                <span>Oneplus 7t pro, et cover/etui uden front/pung (billig i blackfriday)</span>
+                <span>Oneplus 7t pro, et cover/etui uden front/pung.</span>
+                <div class="price">Kr. 29-150,-</div>
             </div>
-            <div class="price">Kr. 29-150,-</div>
-        </div>
-        <div class="wishlist-item">
-            <a href="https://www.cykelpartner.dk/pumper-og-tilbehoer/ongear---minipumpe---til-alle-ventiltyper---8-bar120-psi---inklusiv-beslag---blaa" target="_blank">
-            <img src="https://resources.chainbox.io/5/cykelpartner/public/pim/d82992e5-abfd-4e64-91ee-3115c55cf1b6/og4019300_a_default.png" ></a>
-            <div class="wishlist-item-content">
-                <a href="https://www.cykelpartner.dk/pumper-og-tilbehoer/ongear---minipumpe---til-alle-ventiltyper---8-bar120-psi---inklusiv-beslag---blaa" target="_blank">Cykel pumpe</a>
-                <span>En lille cykelpumpe som kan monteres på cyklen (som fungere)</span>
-            </div>
-            <div class="price">Kr. 50-100,-</div>
-        </div>
-        <div class="wishlist-item">
-            <a href="https://skioutlet.nu/vare/paley-pnt-m/?attribute_pa_color=sort" target="_blank">
-            <img src="https://skioutlet.nu/wp-content/uploads/2020/07/13796-500-510x510.jpeg"></a>
-            <div class="wishlist-item-content">
-                <a href="https://skioutlet.nu/vare/paley-pnt-m/?attribute_pa_color=sort" target="_blank">Skitøj</a>
-                <span>Varmt tøj/undertøj eller skibukser</span>
-            </div>
-            <div class="price">Kr. 500-700,-</div>
         </div>
     </div>
 </body>
