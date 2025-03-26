@@ -12,10 +12,9 @@
             margin: 0;
             padding: 0;
             background: url('./images/birthday.jpg') no-repeat center center fixed;
-            background-size: 100%;
-            /* Adjust size to 50% of the container */
+            background-size: cover;
+            /* Ensures the image covers the screen proportionally */
             background-attachment: fixed;
-            /* Ensure it stays fixed */
             color: #AFF5FF;
         }
 
@@ -99,6 +98,7 @@
             .wishlist-item {
                 flex-direction: column;
                 align-items: flex-start;
+                background-color:  rgba(0, 0, 0, 0.7);
             }
 
             .wishlist-item img {
@@ -109,6 +109,12 @@
 
             .wishlist-item-content {
                 max-width: 100%;
+                
+            }
+
+            .container {
+                background: none;
+                box-shadow: none;
             }
 
             .price {
@@ -131,6 +137,8 @@
                 font-size: 12px;
             }
         }
+
+        
     </style>
 </head>
 
