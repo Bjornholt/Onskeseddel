@@ -70,14 +70,13 @@ function wishCard(wish, index) {
 }
 
 function render() {
-  document.querySelector("#top-note").textContent = reviewerMode ? "Lasses ønskeliste til dig" : "En lille samling af ønsker";
   const header = reviewerMode
-    ? `<section class="hero"><div><p class="eyebrow">Lasse · Ønskeliste</p><h1>Find den helt rigtige gave</h1><p class="intro">Her er ønskerne på listen.</p></div></section>`
-    : `<section class="hero"><div><p class="eyebrow">Lasse · Min ønskeliste</p><h1>Ønsker, der gør mig glad</h1><p class="intro">Saml dine ønsker ét sted, og del listen med dem, du holder af.</p></div><div class="hero-actions"><button class="button button-light" data-action="share">↗ Del listen</button><button class="button button-primary" data-action="add">＋ Tilføj ønske</button></div></section>`;
+    ? `<section class="hero"><div><p class="eyebrow">Lasse · Ønskeliste</p><p class="intro">Håber der er noget på listen som du kan lide</p></div></section>`
+    : `<section class="hero"><div><p class="eyebrow">Lasse · Min ønskeliste</p><p class="intro">Saml dine ønsker ét sted, og del listen.</p></div><div class="hero-actions"><button class="button button-light" data-action="share">↗ Del listen</button><button class="button button-primary" data-action="add">＋ Tilføj ønske</button></div></section>`;
   const summary = `<div class="summary"><strong>${wishes.length} ønsker</strong></div>`;
   const empty = `<div class="empty"><div class="empty-icon">🎁</div><h2>${reviewerMode ? "Listen er tom lige nu" : "Start din ønskeliste"}</h2><p>${reviewerMode ? "Der er ikke tilføjet ønsker endnu." : "Tilføj et ønske med et link, så er du i gang."}</p>${reviewerMode ? "" : '<button class="button button-primary" data-action="add">＋ Tilføj dit første ønske</button>'}</div>`;
   const footer = reviewerMode
-    ? '<p class="footnote centered">Ønskelisten er delt med dig — god gavejagt!</p>'
+    ? ""
     : '<p class="footnote centered">Dine ændringer gemmes i denne browser og kommer med i reviewerlinket, når du deler listen.</p>';
   app.innerHTML = `${header}${summary}<section class="wish-grid" id="wish-grid" aria-label="Ønsker">${wishes.length ? wishes.map(wishCard).join("") : empty}</section>${footer}`;
 }

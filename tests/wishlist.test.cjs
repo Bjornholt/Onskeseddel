@@ -92,6 +92,7 @@ test("Pages app has creator/reviewer modes and mobile safe-area/touch styles", (
   assert.match(html, /wishlist-core\.js/);
   assert.match(script, /get\("view"\) === "reviewer"/);
   assert.match(script, /if \(action === "share" && !reviewerMode\)/);
+  assert.doesNotMatch(script, /Find den helt rigtige gave|Her er ønskerne på listen|Ønskelisten er delt med dig — god gavejagt!/);
   assert.doesNotMatch(script, /toggleTaken|Reserver ønske|updatedCreatorUrl|taken/);
   assert.doesNotMatch(css, /reserve-button|\.reserved\{/);
   assert.match(css, /env\(safe-area-inset-bottom\)/);

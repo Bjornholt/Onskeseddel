@@ -83,7 +83,18 @@ h1 {
 }
 
 .intro { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
-.hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  padding: 24px 28px;
+  border: 1px solid #e9e6de;
+  border-radius: 18px;
+  background: #fffefaF5;
+  box-shadow: 0 8px 24px #17251d12;
+}
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .button {
@@ -103,7 +114,16 @@ h1 {
 .button-primary { background: var(--green); color: white; }
 .button-primary:hover { background: #234332; }
 .button-light { border-color: var(--line); background: white; color: var(--ink); }
-.summary { display: flex; align-items: center; gap: 10px; margin: 26px 0 14px; color: var(--muted); font-size: 13px; }
+.summary {
+  display: table;
+  margin: 26px 0 14px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fffefaf5;
+  color: #505b53;
+  font-size: 13px;
+}
 .summary strong { color: var(--ink); }
 
 .wish-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
@@ -160,7 +180,17 @@ h1 {
 .drag-handle:active { cursor: grabbing; }
 .empty { grid-column: 1 / -1; padding: 52px 20px; border: 1px dashed #d9ddd5; border-radius: 16px; background: var(--white); color: var(--muted); text-align: center; }
 .empty h2 { margin-bottom: 7px; color: var(--ink); font-size: 20px; }
-.footnote { margin: 22px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.footnote {
+  width: fit-content;
+  margin: 22px auto 0;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fffefaf5;
+  color: #505b53;
+  font-size: 12px;
+  line-height: 1.5;
+}
 .centered { text-align: center; }
 
 dialog {
@@ -199,7 +229,7 @@ dialog::backdrop { background: #17251dcc; }
   .topbar { min-height: calc(60px + env(safe-area-inset-top)); padding: env(safe-area-inset-top) 18px 0; }
   #top-note { display: none; }
   main { padding: 30px 16px calc(54px + env(safe-area-inset-bottom)); }
-  .hero { align-items: flex-start; flex-direction: column; margin-bottom: 24px; }
+  .hero { align-items: flex-start; flex-direction: column; margin-bottom: 24px; padding: 20px; }
   .hero-actions { width: 100%; }
   .hero-actions .button { flex: 1; }
   .wish-grid { grid-template-columns: 1fr; gap: 13px; }
