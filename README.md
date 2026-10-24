@@ -1,14 +1,19 @@
 # Ønskeliste
 
-A static wishlist for GitHub Pages. The creator can add, edit, delete, and reorder wishes. Guests use a separate read-only reviewer URL.
+A static wishlist for GitHub Pages. The creator can add, edit, delete, and reorder wishes. Reviewers use one stable, read-only link.
 
 ## GitHub Pages
 
-Keep `index.html`, `styles.css`, `script.js`, and `wishlist-core.js` in the repository root. In the repository's **Settings → Pages**, publish the `main` branch from the root folder.
+Keep the site files and `data/wishes.json` in the repository. In **Settings → Pages**, publish the `main` branch from the root folder.
 
-## How saves work
+## Publish the shared list
 
-Wish edits are saved in the creator's browser and included in new reviewer links. The reviewer can see the wishes but cannot change them. GitHub Pages cannot accept edits to a repository file from a visitor's browser.
+1. Make changes in the creator view. They are saved in that browser.
+2. Click **Udgiv på GitHub**. The latest list is copied as JSON and the repository editor opens.
+3. Replace all contents of `data/wishes.json` with the copied text, then commit the change to `main`.
+4. GitHub Pages publishes the update. Reviewers keep using the same reviewer link and see the latest published list.
+
+The reviewer page reads `data/wishes.json` directly. Publishing may take a few minutes. The JSON file is public, like the GitHub Pages site.
 
 ## Tests
 

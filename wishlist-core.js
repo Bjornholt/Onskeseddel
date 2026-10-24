@@ -88,10 +88,10 @@
     }
   }
 
-  function reviewUrl(currentUrl, wishes) {
+  function reviewUrl(currentUrl) {
     const url = new URL(currentUrl);
     url.searchParams.set("view", "reviewer");
-    url.hash = `list=${encodeSnapshot(wishes)}`;
+    url.hash = "";
     return url.href;
   }
 

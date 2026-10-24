@@ -7,6 +7,7 @@ const root = path.join(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const script = fs.readFileSync(path.join(root, "script.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+const publishedWishes = JSON.parse(fs.readFileSync(path.join(root, "data", "wishes.json"), "utf8"));
 
 const ids = wishes => wishes.map(wish => wish.id);
 
@@ -79,12 +80,15 @@ test("old browser data is cleaned of removed reservation fields", () => {
   assert.deepEqual(cleaned, [{id:"old",title:"Wish",description:"Note",price:"",url:"",image:""}]);
 });
 
-test("share links open the read-only reviewer view with the current wishes", () => {
-  const wishes = Core.starterWishes();
-  const review = new URL(Core.reviewUrl("https://example.test/", wishes));
+test("repository data starts with all wishes", () => {
+  assert.deepEqual(publishedWishes, Core.starterWishes());
+});
+
+test("share links keep one stable read-only reviewer URL", () => {
+  const review = new URL(Core.reviewUrl("https://example.test/?campaign=x#old-snapshot"));
   assert.equal(review.searchParams.get("view"), "reviewer");
-  assert.deepEqual(Core.decodeSnapshot(review.hash.slice(6)), wishes);
-  assert.ok(Core.decodeSnapshot(review.hash.slice(6)).every(wish => !Object.hasOwn(wish, "taken")));
+  assert.equal(review.searchParams.get("campaign"), "x");
+  assert.equal(review.hash, "");
 });
 
 test("Pages app has creator/reviewer modes and mobile safe-area/touch styles", () => {
@@ -92,6 +96,9 @@ test("Pages app has creator/reviewer modes and mobile safe-area/touch styles", (
   assert.match(html, /wishlist-core\.js/);
   assert.match(script, /get\("view"\) === "reviewer"/);
   assert.match(script, /if \(action === "share" && !reviewerMode\)/);
+  assert.match(script, /data\/wishes\.json/);
+  assert.match(script, /data-action="publish"/);
+  assert.match(script, /Onskeseddel\/edit\/main\/data\/wishes\.json/);
   assert.doesNotMatch(script, /Find den helt rigtige gave|Her er ønskerne på listen|Ønskelisten er delt med dig — god gavejagt!/);
   assert.doesNotMatch(script, /toggleTaken|Reserver ønske|updatedCreatorUrl|taken/);
   assert.doesNotMatch(css, /reserve-button|\.reserved\{/);

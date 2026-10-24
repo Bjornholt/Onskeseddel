@@ -1,20 +1,34 @@
 const STORAGE_KEY = "onskeseddel-wishes-v1";
 const reviewerMode = new URLSearchParams(location.search).get("view") === "reviewer";
+const GITHUB_EDIT_URL = "https://github.com/Bjornholt/Onskeseddel/edit/main/data/wishes.json";
 const app = document.querySelector("#app");
 const wishDialog = document.querySelector("#wish-dialog");
 const wishForm = document.querySelector("#wish-form");
 const confirmDialog = document.querySelector("#confirm-dialog");
-let wishes = readWishes();
+let wishes = [];
+let publishedLoadError = false;
 let editingId = null;
 let dragState = null;
 
-function readWishes() {
+async function readWishes() {
   const match = location.hash.match(/^#list=(.+)$/);
   const snapshot = match ? WishlistCore.decodeSnapshot(match[1]) : null;
-  if (snapshot) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
-    return snapshot;
+  if (reviewerMode && snapshot) return snapshot;
+
+  if (reviewerMode) {
+    try { return await readPublishedWishes(); }
+    catch {
+      if (location.protocol === "file:") {
+        try {
+          const local = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (Array.isArray(local)) return WishlistCore.normalizeWishes(local);
+        } catch { /* Show the load error below when no local preview is available. */ }
+      }
+      publishedLoadError = true;
+      return [];
+    }
   }
+
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (Array.isArray(saved)) {
@@ -23,16 +37,30 @@ function readWishes() {
       return cleaned;
     }
   } catch { /* Start with the embedded list if the local copy is unreadable. */ }
+
+  try {
+    const published = await readPublishedWishes();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(published));
+    return published;
+  } catch { /* Local file previews cannot fetch the published JSON file. */ }
+
   const starter = WishlistCore.starterWishes();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(starter));
   return starter;
 }
 
+async function readPublishedWishes() {
+  const dataUrl = new URL("data/wishes.json", location.href);
+  dataUrl.searchParams.set("_", String(Date.now()));
+  const response = await fetch(dataUrl, {cache: "no-store"});
+  if (!response.ok) throw new Error("The published wishlist could not be loaded.");
+  const list = await response.json();
+  if (!Array.isArray(list)) throw new Error("The published wishlist is invalid.");
+  return WishlistCore.normalizeWishes(list);
+}
+
 function saveWishes() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
-  if (location.hash.startsWith("#list=")) {
-    history.replaceState(null, "", `${location.pathname}${location.search}#list=${WishlistCore.encodeSnapshot(wishes)}`);
-  }
   render();
 }
 
@@ -72,12 +100,12 @@ function wishCard(wish, index) {
 function render() {
   const header = reviewerMode
     ? `<section class="hero"><div><p class="eyebrow">Lasse · Ønskeliste</p><p class="intro">Håber der er noget på listen som du kan lide</p></div></section>`
-    : `<section class="hero"><div><p class="eyebrow">Lasse · Min ønskeliste</p><p class="intro">Saml dine ønsker ét sted, og del listen.</p></div><div class="hero-actions"><button class="button button-light" data-action="share">↗ Del listen</button><button class="button button-primary" data-action="add">＋ Tilføj ønske</button></div></section>`;
+    : `<section class="hero"><div><p class="eyebrow">Lasse · Min ønskeliste</p><p class="intro">Saml dine ønsker ét sted, og del listen.</p></div><div class="hero-actions"><button class="button button-light" data-action="share">↗ Del listen</button><button class="button button-light" data-action="publish">↑ Udgiv på GitHub</button><button class="button button-primary" data-action="add">＋ Tilføj ønske</button></div></section>`;
   const summary = `<div class="summary"><strong>${wishes.length} ønsker</strong></div>`;
-  const empty = `<div class="empty"><div class="empty-icon">🎁</div><h2>${reviewerMode ? "Listen er tom lige nu" : "Start din ønskeliste"}</h2><p>${reviewerMode ? "Der er ikke tilføjet ønsker endnu." : "Tilføj et ønske med et link, så er du i gang."}</p>${reviewerMode ? "" : '<button class="button button-primary" data-action="add">＋ Tilføj dit første ønske</button>'}</div>`;
+  const empty = `<div class="empty"><div class="empty-icon">🎁</div><h2>${reviewerMode ? (publishedLoadError ? "Listen kunne ikke hentes" : "Listen er tom lige nu") : "Start din ønskeliste"}</h2><p>${reviewerMode ? (publishedLoadError ? "Prøv at åbne linket igen om lidt." : "Der er ikke tilføjet ønsker endnu.") : "Tilføj et ønske med et link, så er du i gang."}</p>${reviewerMode ? "" : '<button class="button button-primary" data-action="add">＋ Tilføj dit første ønske</button>'}</div>`;
   const footer = reviewerMode
     ? ""
-    : '<p class="footnote centered">Dine ændringer gemmes i denne browser og kommer med i reviewerlinket, når du deler listen.</p>';
+    : '<p class="footnote centered">Dine ændringer gemmes her. Vælg “Udgiv på GitHub” for at opdatere den delte liste.</p>';
   app.innerHTML = `${header}${summary}<section class="wish-grid" id="wish-grid" aria-label="Ønsker">${wishes.length ? wishes.map(wishCard).join("") : empty}</section>${footer}`;
 }
 
@@ -104,6 +132,24 @@ function copyText(value, success) {
   } else window.prompt("Kopiér linket:", value);
 }
 
+async function publishListToGitHub() {
+  window.open(GITHUB_EDIT_URL, "_blank", "noopener,noreferrer");
+  const contents = JSON.stringify(wishes, null, 2);
+  try {
+    await navigator.clipboard.writeText(contents);
+    showToast("Listen er kopieret. Indsæt den i GitHub, og gem ændringen.");
+  } catch {
+    const file = new Blob([`${contents}\n`], {type: "application/json"});
+    const downloadUrl = URL.createObjectURL(file);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = "wishes.json";
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+    showToast("Filen er hentet. Erstat data/wishes.json på GitHub, og gem ændringen.");
+  }
+}
+
 app.addEventListener("click", async event => {
   const button = event.target.closest("[data-action]");
   if (!button) return;
@@ -123,6 +169,7 @@ app.addEventListener("click", async event => {
     saveWishes();
   }
   if (action === "share" && !reviewerMode) copyText(WishlistCore.reviewUrl(location.href, wishes), "Reviewerlink kopieret");
+  if (action === "publish" && !reviewerMode) publishListToGitHub();
 });
 
 function confirmDelete() {
@@ -253,4 +300,7 @@ app.addEventListener("pointercancel", event => {
   if (dragState?.pointerId === event.pointerId) finishDrag(false);
 });
 
-render();
+readWishes().then(loaded => {
+  wishes = loaded;
+  render();
+});
