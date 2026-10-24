@@ -1,6 +1,6 @@
 const STORAGE_KEY = "onskeseddel-wishes-v1";
 const reviewerMode = new URLSearchParams(location.search).get("view") === "reviewer";
-const GITHUB_EDIT_URL = "https://github.com/Bjornholt/Onskeseddel/edit/main/data/wishes.json";
+const GITHUB_UPLOAD_URL = "https://github.com/Bjornholt/Onskeseddel/upload/main/data";
 const app = document.querySelector("#app");
 const wishDialog = document.querySelector("#wish-dialog");
 const wishForm = document.querySelector("#wish-form");
@@ -100,12 +100,12 @@ function wishCard(wish, index) {
 function render() {
   const header = reviewerMode
     ? `<section class="hero"><div><p class="eyebrow">Lasse · Ønskeliste</p><p class="intro">Håber der er noget på listen som du kan lide</p></div></section>`
-    : `<section class="hero"><div><p class="eyebrow">Lasse · Min ønskeliste</p><p class="intro">Saml dine ønsker ét sted, og del listen.</p></div><div class="hero-actions"><button class="button button-light" data-action="share">↗ Del listen</button><button class="button button-light" data-action="publish">↑ Udgiv på GitHub</button><button class="button button-primary" data-action="add">＋ Tilføj ønske</button></div></section>`;
+    : `<section class="hero"><div><p class="eyebrow">Lasse · Min ønskeliste</p><p class="intro">Saml dine ønsker ét sted, og del listen.</p></div><div class="hero-actions"><button class="button button-light" data-action="share">↗ Del listen</button><button class="button button-light" data-action="publish">↓ Download wishes.json</button><button class="button button-primary" data-action="add">＋ Tilføj ønske</button></div></section>`;
   const summary = `<div class="summary"><strong>${wishes.length} ønsker</strong></div>`;
   const empty = `<div class="empty"><div class="empty-icon">🎁</div><h2>${reviewerMode ? (publishedLoadError ? "Listen kunne ikke hentes" : "Listen er tom lige nu") : "Start din ønskeliste"}</h2><p>${reviewerMode ? (publishedLoadError ? "Prøv at åbne linket igen om lidt." : "Der er ikke tilføjet ønsker endnu.") : "Tilføj et ønske med et link, så er du i gang."}</p>${reviewerMode ? "" : '<button class="button button-primary" data-action="add">＋ Tilføj dit første ønske</button>'}</div>`;
   const footer = reviewerMode
     ? ""
-    : '<p class="footnote centered">Dine ændringer gemmes her. Vælg “Udgiv på GitHub” for at opdatere den delte liste.</p>';
+    : '<p class="footnote centered">Ændringer gemmes automatisk i denne browser. Download wishes.json, og upload og commit filen på GitHub for at opdatere den delte liste.</p>';
   app.innerHTML = `${header}${summary}<section class="wish-grid" id="wish-grid" aria-label="Ønsker">${wishes.length ? wishes.map(wishCard).join("") : empty}</section>${footer}`;
 }
 
@@ -132,22 +132,17 @@ function copyText(value, success) {
   } else window.prompt("Kopiér linket:", value);
 }
 
-async function publishListToGitHub() {
-  window.open(GITHUB_EDIT_URL, "_blank", "noopener,noreferrer");
+function publishListToGitHub() {
   const contents = JSON.stringify(wishes, null, 2);
-  try {
-    await navigator.clipboard.writeText(contents);
-    showToast("Listen er kopieret. Indsæt den i GitHub, og gem ændringen.");
-  } catch {
-    const file = new Blob([`${contents}\n`], {type: "application/json"});
-    const downloadUrl = URL.createObjectURL(file);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = "wishes.json";
-    link.click();
-    URL.revokeObjectURL(downloadUrl);
-    showToast("Filen er hentet. Erstat data/wishes.json på GitHub, og gem ændringen.");
-  }
+  const file = new Blob([`${contents}\n`], {type: "application/json"});
+  const downloadUrl = URL.createObjectURL(file);
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.download = "wishes.json";
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+  window.open(GITHUB_UPLOAD_URL, "_blank", "noopener,noreferrer");
+  showToast("wishes.json er downloadet. Upload filen på GitHub, og klik Commit changes.");
 }
 
 app.addEventListener("click", async event => {
