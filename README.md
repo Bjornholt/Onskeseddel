@@ -9,8 +9,8 @@ Keep the site files and `data/wishes.json` in the repository. In **Settings → 
 ## Publish the shared list
 
 1. Make changes in the creator view. They are saved in that browser.
-2. Click **Download wishes.json**. The latest list is downloaded and GitHub's upload page opens.
-3. Upload the downloaded file into the `data` folder, replace the existing file if asked, and commit the change to `main`.
+2. Click **Kopiér til GitHub**. The latest list is copied as JSON and the GitHub editor opens.
+3. In the editor, select the existing file contents, paste the copied JSON, and commit the change to `main`. If clipboard access is unavailable, the app downloads `wishes.json` instead; upload that file into the `data` folder.
 4. GitHub Pages publishes the update. Reviewers keep using the same reviewer link and see the latest published list.
 
 The reviewer page reads `data/wishes.json` directly. Publishing may take a few minutes. The JSON file is public, like the GitHub Pages site.

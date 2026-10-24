@@ -80,8 +80,14 @@ test("old browser data is cleaned of removed reservation fields", () => {
   assert.deepEqual(cleaned, [{id:"old",title:"Wish",description:"Note",price:"",url:"",image:""}]);
 });
 
-test("repository data starts with all wishes", () => {
-  assert.deepEqual(publishedWishes, Core.starterWishes());
+test("repository data contains valid, uniquely identified wishes", () => {
+  assert.ok(publishedWishes.length > 0);
+  assert.equal(new Set(ids(publishedWishes)).size, publishedWishes.length);
+  assert.ok(publishedWishes.every(wish =>
+    typeof wish.id === "string" && typeof wish.title === "string" &&
+    typeof wish.description === "string" && typeof wish.price === "string" &&
+    typeof wish.url === "string" && typeof wish.image === "string" && !Object.hasOwn(wish, "taken")
+  ));
 });
 
 test("share links keep one stable read-only reviewer URL", () => {
@@ -98,8 +104,9 @@ test("Pages app has creator/reviewer modes and mobile safe-area/touch styles", (
   assert.match(script, /if \(action === "share" && !reviewerMode\)/);
   assert.match(script, /data\/wishes\.json/);
   assert.match(script, /data-action="publish"/);
+  assert.match(script, /clipboard\.writeText\(contents\)/);
+  assert.match(script, /Onskeseddel\/edit\/main\/data\/wishes\.json/);
   assert.match(script, /download = "wishes\.json"/);
-  assert.match(script, /Onskeseddel\/upload\/main\/data/);
   assert.doesNotMatch(script, /Find den helt rigtige gave|Her er ønskerne på listen|Ønskelisten er delt med dig — god gavejagt!/);
   assert.doesNotMatch(script, /toggleTaken|Reserver ønske|updatedCreatorUrl|taken/);
   assert.doesNotMatch(css, /reserve-button|\.reserved\{/);
