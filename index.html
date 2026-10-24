@@ -1,291 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="da">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Lasse's ønskeseddel</title>
-    <style>
-        /* General body styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('./images/birthday.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #AFF5FF;
-        }
-
-        /* Container styling */
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 {
-            font-size: 32px;
-            text-align: center;
-            color: #ffdf00;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Wishlist items layout */
-        .wishlist-item {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin: 20px 0;
-            border-radius: 8px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .wishlist-item img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #ffdf00;
-            margin-right: 15px;
-            flex-shrink: 0;
-            background: #ffffff;
-            /* Prevent image shrinking */
-        }
-
-        img {
-            display: block;
-        }
-
-        .wishlist-item-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .wishlist-item a {
-            text-decoration: none;
-            color: #ffdf00;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .wishlist-item a:hover {
-            text-decoration: underline;
-        }
-
-        .wishlist-item span {
-            font-size: 14px;
-            color: #ddd;
-        }
-
-        .price {
-            font-size: 16px;
-            font-weight: bold;
-            color: #ddd;
-            margin-top: 10px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 24px;
-            }
-
-            .wishlist-item {
-                flex-direction: column;
-                align-items: flex-start;
-                background-color: rgba(0, 0, 0, 0.7);
-            }
-
-            .wishlist-item img {
-                width: 100%;
-                height: auto;
-                margin: 0 0 10px 0;
-            }
-
-            .wishlist-item-content {
-                max-width: 100%;
-
-            }
-
-            .container {
-                background: none;
-                box-shadow: none;
-            }
-
-            .price {
-                position: static;
-                transform: none;
-                margin-top: 5px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            h1 {
-                font-size: 20px;
-            }
-
-            .wishlist-item a {
-                font-size: 16px;
-            }
-
-            .wishlist-item span {
-                font-size: 12px;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f6f1">
+  <title>Lasses ønskeliste</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>🎁 Lasse's ønskeseddel 🎁</h1>
+  <header class="topbar">
+    <a class="brand" href="?view=creator"><span class="brand-mark">♡</span> Ønskeliste</a>
+    <span id="top-note">En lille samling af ønsker</span>
+  </header>
+  <main id="app"></main>
 
-        <!-- Sengelinned -->
-        <div class="wishlist-item">
-            <a href="https://www.home-tex.dk/shop/bambus-sengetoej-140x220-15489p.html"
-               target="_blank">
-                <img src="https://www.home-tex.dk/images/Beige-1.webp"
-                     alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="https://www.home-tex.dk/shop/bambus-sengetoej-140x220-15489p.html"
-                   target="_blank">Sengelinned sæt til 2 dyner og puder</a>
-                <span> dynebetræk og pudebetræk - str.140x220</span>
-                <div class="price">Kr. pr. stk. 450,-</div>
-            </div>
+  <dialog id="wish-dialog">
+    <form id="wish-form" method="dialog">
+      <div class="dialog-header">
+        <div>
+          <h2 id="dialog-title">Tilføj et ønske</h2>
+          <p>Et link er nok — resten kan tilføjes senere.</p>
         </div>
-
-        <!-- Lagen  -->
-        <div class="wishlist-item">
-            <a href="https://jysk.dk/sovevaerelse/lagner/kuvertlagner/kuvertlagen-edith-140x200x6-10-hvid?article=1638501#product-intro" target="_blank">
-                <img
-                    src="https://cdn1.jysk.com/getimage/wd3.medium/262005"
-                    alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="https://jysk.dk/sovevaerelse/lagner/kuvertlagner/kuvertlagen-edith-140x200x6-10-hvid?article=1638501#product-intro
-"
-                    target="_blank">Stræklagen</a>
-                <span>Stræk lagen til halvandenmandsseng 140x200.</span>
-                <div class="price">ca. Kr. 150-200,-</div>
-            </div>
-        </div>
-
-        <!-- langærmet sportstrøje -->
-        <div class="wishlist-item">
-            <a href="https://www.zalando.dk/under-armour-tech-20-12-langarmet-t-shirt-black-007-un242g056-q32.html"
-                target="_blank">
-                <img src="https://img01.ztat.net/article/spp-media-p1/2bb3c63d607c455bbec77448484003f4/4cf6bdd5ff884005a9cf6c54495cf411.png?imwidth=1800"
-                     alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="https://www.zalando.dk/under-armour-tech-20-12-langarmet-t-shirt-black-007-un242g056-q32.html"
-                    target="_blank">Langærmet sportstrøje</a>
-                <span> En man kan løbe i og holde varmen i koldetider (udenhætte)</span>
-                <div class="price">Kr. 300-350,-</div>
-            </div>
-        </div>
-
-<!--        &lt;!&ndash; Langærmet trøje &ndash;&gt;-->
-<!--        <div class="wishlist-item">-->
-<!--            <a href="https://www.zalando.dk/we-fashion-striktroeje-beige-wf522s09q-b11.html"-->
-<!--                target="_blank">-->
-<!--                <img-->
-<!--                    src="https://img01.ztat.net/article/spp-media-p1/b5c851e592ab40a7b5539f32ea55b707/5f46c8eee7bd40588a9f7bb697413c67.jpg?imwidth=1800"-->
-<!--                    alt="">-->
-<!--            </a>-->
-<!--            <div class="wishlist-item-content">-->
-<!--                <a href="https://www.zalando.dk/we-fashion-striktroeje-beige-wf522s09q-b11.html"-->
-<!--                    target="_blank">Langærmet trøje</a>-->
-<!--                <span>Må gerne have minimalt design på - str. M</span>-->
-<!--                <div class="price">ca. Kr. 250,-</div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-        <!-- Penge til planter til lejlighed -->
-        <div class="wishlist-item">
-            <a href="https://www.silvan.dk/produkt/violinfigen-ficus-lyrata-oe17-cm-7300-9846407"
-               target="_blank">
-                <img src="https://webassets.silvan.dk/resources/Images/9846407_Large.jpg?width=480&height=480"
-                alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="https://www.silvan.dk/produkt/violinfigen-ficus-lyrata-oe17-cm-7300-9846407"
-                    target="_blank">Penge til planter</a>
-                <span>Det er til inde i lejligheden</span>
-                <div class="price">ca. Kr. 100,-</div>
-            </div>
-        </div>
-
-        <!-- Bælter -->
-        <div class="wishlist-item">
-            <a href="https://nordformstore.dk/vare/triple-saet/"
-               target="_blank">
-                <img
-                    src="https://nordformstore.dk/wp-content/uploads/2023/12/Triple-Set-product-pic.jpg"
-                    alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="https://nordformstore.dk/vare/triple-saet/"
-                   target="_blank">Bælte</a>
-                <span>Gerne med justerings system som nordform</span>
-                <div class="price">ca. Kr. 1.199,- (for 3)</div>
-            </div>
-        </div>
-
-        <!-- Tastatur -->
-        <div class="wishlist-item">
-            <a href="https://www.maxgaming.dk/dk/gaming-tastatur/one-3-tkl-pure-white-rgb-hotswap-tastatur-mx-red"
-               target="_blank">
-                <img src="https://www.maxgaming.dk/bilder/artiklar/zoom/26967_1.jpg?m=1705476560"
-                     alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="https://www.maxgaming.dk/dk/gaming-tastatur/one-3-tkl-pure-white-rgb-hotswap-tastatur-mx-red"
-                   target="_blank" >Tastatur</a>
-                <span>Hotswap behøver ikke RGB, gerne MX brown eller red </span>
-                <div class="price">ca. Kr. 680,-</div>
-            </div>
-        </div>
-
-        <!-- Sokker -->
-        <div class="wishlist-item">
-            <a href="http://zalando.dk/boss-5-pack-stroemper-black-bb182f08n-q11.html"
-               target="_blank">
-                <img src="https://img01.ztat.net/article/spp-media-p1/f7e1e59ed409419cb1acd9ee2eb8b2cd/eea48a5529f14525a0a294195db0c11d.jpg?imwidth=1800&filter=packshot"
-                     alt="">
-            </a>
-            <div class="wishlist-item-content">
-                <a href="http://zalando.dk/boss-5-pack-stroemper-black-bb182f08n-q11.html"
-                   target="_blank">Sokker</a>
-                <span>Simpelt design, men gerne lidt kvalitet</span>
-                <div class="price">ca. Kr. 300,-</div>
-            </div>
-        </div>
-
-        <!-- Tandbørste -->
-        <div class="wishlist-item">
-            <a href="https://www.compumail.dk/da/p/oral-b-sort-lava-tandborste-1000842382?"
-               target="_blank">
-                <img src="https://cdn.cs.1worldsync.com/2d/46/2d46b060-0197-4202-baf7-aba9ae5a987f.jpg"
-                     alt="https://www.compumail.dk/da/p/oral-b-sort-lava-tandborste-1000842382?">
-            </a>
-            <div class="wishlist-item-content">
-                <a href=""
-                   target="_blank">Elektrisk tandbørste</a>
-                <span>Skulle være ret god til prisen </span>
-                <div class="price">ca. Kr. 600,-</div>
-            </div>
-        </div>
-
-
+        <button type="button" class="close-button" aria-label="Luk">×</button>
+      </div>
+      <label class="field">
+        <span>Hvad ønsker du dig?</span>
+        <input name="title" required maxlength="120" placeholder="Fx en god kaffekværn">
+      </label>
+      <label class="field">
+        <span>Link til butikken</span>
+        <input name="url" type="url" placeholder="https://">
+      </label>
+      <label class="field">
+        <span>Billede (valgfrit)</span>
+        <input name="image" type="url" placeholder="https://">
+      </label>
+      <label class="field">
+        <span>Detaljer</span>
+        <textarea name="description" maxlength="240" rows="3" placeholder="Størrelse, farve eller andre detaljer"></textarea>
+      </label>
+      <label class="field">
+        <span>Pris (valgfrit)</span>
+        <input name="price" maxlength="60" placeholder="Ca. 300 kr.">
+      </label>
+      <div class="dialog-actions">
+        <button class="button button-light cancel-button" type="button">Annuller</button>
+        <button class="button button-primary" type="submit">Gem ønske</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="confirm-dialog">
+    <form method="dialog">
+      <p>Vil du slette ønsket fra listen?</p>
+      <div class="dialog-actions">
+        <button class="button button-light" value="cancel">Annuller</button>
+        <button class="button button-danger" value="delete">Slet ønske</button>
+      </div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="wishlist-core.js"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>
